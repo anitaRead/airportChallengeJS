@@ -23,12 +23,27 @@ describe("Instruct a plane", () => {
     // I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
 
     describe("take off", () => {
+
       it("planes can be instructed to take off", () => {
         plane.land(airport);
         plane.takeOff();
         expect(airport.planes()).toEqual([]);
       });
+
+      // As an air traffic controller
+      // To ensure safety
+      // I want to prevent takeoff when weather is stormy
+
+      it ("prevents take off when weather is stormy", () => {
+        plane.land(airport);
+        spyOn(airport,"isStormy").and.returnValue(true);
+        expect(() => { plane.takeOff();}).toThrowError("can not take off during a storm");
+        expect(airport.planes()).toContain(plane);
+      });
+
     });
+
+
 });
 
 
