@@ -8,7 +8,7 @@ describe ("Airport", () => {
         plane = jasmine.createSpyObj("plane", ["land"]);
     });
 
-    it ('has no planes', () => {
+    it ("has no planes to start", () => {
         expect(airport.planes()).toEqual([]);
     });  
 
@@ -17,5 +17,9 @@ describe ("Airport", () => {
         expect(airport.planes()).toEqual([plane]);
     });
 
-
+    it("can clear planes for take off", () => {
+        airport.clearForLanding(plane);
+        airport.clearForTakeOff(plane);
+        expect(airport.planes()).toEqual([]);
+    });
 });
